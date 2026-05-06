@@ -23,7 +23,7 @@ The two patterns are intentionally independent. Visitor handles *what you do wit
 ## What Is Provided
 
 | File | Description |
-|------|-------------|
+|----[artifact](src/com/narxoz/rpg/artifact)--|-------------|
 | `src/com/narxoz/rpg/artifact/ArtifactVisitor.java` | Visitor interface with one overload per artifact type |
 | `src/com/narxoz/rpg/artifact/Artifact.java` | Abstract artifact base class |
 | `src/com/narxoz/rpg/artifact/Weapon.java` | Weapon skeleton |
