@@ -1,20 +1,46 @@
 package com.narxoz.rpg;
 
-/**
- * Entry point for Homework 9 — Chronomancer's Vault: Visitor + Memento.
- *
- * The scaffold prints the banner only; students fill in the vault demo.
- */
+import com.narxoz.rpg.artifact.*;
+import com.narxoz.rpg.combatant.Hero;
+import com.narxoz.rpg.vault.ChronomancerEngine;
+import com.narxoz.rpg.vault.VaultRunResult;
+
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("=== Homework 9 Demo: Visitor + Memento ===");
 
-        // 1. Create at least 2 heroes with different starting states.
-        // 2. Build an artifact inventory and exercise the visitor interface.
-        // 3. Capture a hero snapshot through the memento workflow.
-        // 4. Rewind the hero after a vault trap changes state.
-        // 5. Run the ChronomancerEngine demo sequence.
-        // 6. Print a final VaultRunResult summary.
+        // ── 1. Create 2 heroes with different starting states ─────────────
+        Inventory aragornInventory = new Inventory();
+        aragornInventory.addArtifact(new Weapon("Anduril", 300, 6, 20));
+        aragornInventory.addArtifact(new Potion("Health Potion", 40, 1, 50));
+
+        Inventory gandalfInventory = new Inventory();
+        gandalfInventory.addArtifact(new Scroll("Gandalf's Scroll", 150, 1, "Fireball"));
+        gandalfInventory.addArtifact(new Ring("Narya", 500, 0, 15));
+
+        Hero aragorn = new Hero("Aragorn", 200, 80,  40, 15, 300, aragornInventory);
+        Hero gandalf = new Hero("Gandalf", 140, 150, 30, 10, 500, gandalfInventory);
+
+        List<Hero> party = List.of(aragorn, gandalf);
+
+        System.out.println("\n=== INITIAL PARTY ===");
+        party.forEach(System.out::println);
+
+        // ── 2. Run the vault engine ───────────────────────────────────────
+        ChronomancerEngine engine = new ChronomancerEngine();
+        VaultRunResult result = engine.runVault(party);
+
+        // ── 3. Print final state and VaultRunResult ───────────────────────
+        System.out.println("=== FINAL PARTY STATE ===");
+        party.forEach(System.out::println);
+
+        System.out.println("\n=== VAULT RUN RESULT ===");
+        System.out.println("  Artifacts appraised: " + result.getArtifactsAppraised());
+        System.out.println("  Mementos created:    " + result.getMementosCreated());
+        System.out.println("  Heroes restored:     " + result.getRestoredCount());
+        System.out.println("  " + result);
     }
 }
